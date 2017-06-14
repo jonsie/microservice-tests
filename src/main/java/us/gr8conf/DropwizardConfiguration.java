@@ -9,7 +9,7 @@ public class DropwizardConfiguration extends Configuration {
 		return application;
 	}
 
-	public void setAtlantic(ApplicationConfiguration application) {
+	public void setApplication(ApplicationConfiguration application) {
 		this.application = application;
 	}
 }

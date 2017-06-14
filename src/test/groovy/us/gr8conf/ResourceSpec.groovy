@@ -1,4 +1,6 @@
 package us.gr8conf
 
-class ResourceSpec {
+import spock.lang.Specification
+
+class ResourceSpec extends Specification {
 }
