@@ -1,0 +1,79 @@
+apply plugin: "groovy"
+apply plugin: "java"
+apply plugin: "com.github.johnrengelman.shadow"
+
+group = "gr8conf"
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+version = rootProject.file('version.txt').text.trim()
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+        mavenLocal()
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.0"
+    }
+}
+
+
+
+if (!JavaVersion.current().java8Compatible) {
+    throw new IllegalStateException("Must be built with Java 8 or higher")
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven {
+        url 'http://dl.bintray.com/smartthingsoss/maven'
+    }
+}
+
+def mainClass = "us.gr8conf.Application"
+
+static String getConfigFile() {
+    String overridePath = "${System.getProperty("user.home")}/capo.yml"
+    String filePath = "src/main/resources/atlantic.yml"
+    if (new File(overridePath).exists()) {
+        filePath = overridePath
+    }
+    return filePath
+}
+
+task run (type: JavaExec, dependsOn: classes){
+    args(["server", getConfigFile()])
+    description = "Run "
+    main = mainClass
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+shadowJar {
+    mergeServiceFiles()
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+}
+
+dependencies {
+    compile "org.slf4j:log4j-over-slf4j:${slf4jVersion}"
+    compile "org.slf4j:jcl-over-slf4j:${slf4jVersion}"
+
+    compile "io.dropwizard:dropwizard-core:${dropwizardVersion}"
+    compile 'io.dropwizard.modules:dropwizard-java8:0.9.0-1'
+    compile "smartthings:dropwizard-guice:${dropwizardCommon}"
+    compile "smartthings:dropwizard-buildinfo:${dropwizardCommon}"
+    compile "smartthings:dropwizard-logging:${dropwizardCommon}"
+    compile 'org.coursera:dropwizard-metrics-datadog:1.1.6'
+
+    compile 'com.google.inject.extensions:guice-assistedinject:4.0'
+
+    testCompile "io.dropwizard:dropwizard-testing:${dropwizardVersion}"
+    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
+    testRuntime 'cglib:cglib-nodep:2.2.2'
+    testRuntime 'org.objenesis:objenesis:1.2'
+}
