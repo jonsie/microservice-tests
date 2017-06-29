@@ -1,4 +1,6 @@
 package us.gr8conf
 
-class ServiceSpec {
+import spock.lang.Specification
+
+class ServiceSpec extends Specification {
 }

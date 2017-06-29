@@ -4,16 +4,16 @@ import io.dropwizard.validation.Validated;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import smartthings.dw.guice.WebResource;
-import us.gr8conf.model.GetData;
-import us.gr8conf.model.PostData;
+import us.gr8conf.model.Model;
+import us.gr8conf.model.PostResponse;
 import us.gr8conf.services.Service;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@Path("/")
 public class Resource implements WebResource {
 
 	private final static Logger LOG = LoggerFactory.getLogger(Resource.class);
@@ -27,15 +27,21 @@ public class Resource implements WebResource {
 
 	@POST
 	@Path("/post")
-	public Response scheduleLoad(@Validated PostData postData) {
-		service.handlePost(postData);
-		return Response.noContent().build();
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response scheduleLoad(@Validated Model model) {
+		PostResponse postResponse = service.handlePost(model);
+		return Response.ok(postResponse, MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
-	@Path("/get")
-	public Response scheduleLoad(@Validated GetData getData) {
-		service.handleGet(getData);
-		return Response.ok().build();
+	@Path("/get/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response scheduleLoad(@PathParam("id") String id) {
+		Model model = service.handleGet(id);
+		if (model == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+		return Response.ok(model, MediaType.APPLICATION_JSON).build();
 	}
 }

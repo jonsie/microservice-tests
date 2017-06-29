@@ -1,0 +1,27 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8118
+  adminConnectors:
+    - type: http
+      port: 8119
+logging:
+  level: INFO
+  appenders:
+    - type: console
+      threshold: INFO
+      logFormat: "%-6level [%d{HH:mm:ss.SSS}] [%t] %logger{5} - %X{code} %msg %n"
+metrics:
+  frequency: 30s
+  reporters:
+    - type: datadog
+      expansions:
+        - COUNT
+        - RATE_1_MINUTE
+        - MAX
+        - MEAN
+        - P95
+        - P99
+        - P999
+      transport:
+        type: udp
