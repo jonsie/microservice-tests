@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import smartthings.dw.guice.WebResource;
 import us.gr8conf.model.Model;
-import us.gr8conf.model.PostResponse;
 import us.gr8conf.services.Service;
 
 import javax.inject.Inject;
@@ -27,16 +26,13 @@ public class Resource implements WebResource {
 
 	@POST
 	@Path("/post")
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
 	public Response scheduleLoad(@Validated Model model) {
-		PostResponse postResponse = service.handlePost(model);
-		return Response.ok(postResponse, MediaType.APPLICATION_JSON).build();
+		model = service.handlePost(model);
+		return Response.ok(model, MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
 	@Path("/get/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
 	public Response scheduleLoad(@PathParam("id") String id) {
 		Model model = service.handleGet(id);
 		if (model == null) {
