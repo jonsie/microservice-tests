@@ -1,4 +1,4 @@
-package us.gr8conf.model
+package us.gr8conf.client.model
 
 class Model {
     String id

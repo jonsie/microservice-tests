@@ -1,4 +1,4 @@
-package us.gr8conf
+package us.gr8conf.client
 
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper

@@ -4,7 +4,7 @@ import groovy.json.JsonOutput
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import retrofit2.Response
-import us.gr8conf.model.Model
+import us.gr8conf.client.model.Model
 
 class ServiceSpec extends FunctionalTestSpecification {
 

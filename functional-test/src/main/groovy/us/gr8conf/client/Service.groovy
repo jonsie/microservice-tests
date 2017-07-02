@@ -1,4 +1,4 @@
-package us.gr8conf
+package us.gr8conf.client
 
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -6,7 +6,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import us.gr8conf.model.Model
+import us.gr8conf.client.model.Model
 
 interface Service {
 
