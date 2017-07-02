@@ -1,0 +1,40 @@
+def mainClass = "us.gr8conf.Application"
+
+static String getConfigFile() {
+    String overridePath = "${System.getProperty("user.home")}/application.yml"
+    String filePath = "src/main/resources/application.yml"
+    if (new File(overridePath).exists()) {
+        filePath = overridePath
+    }
+    return filePath
+}
+
+task run (type: JavaExec, dependsOn: classes){
+    args(["server", getConfigFile()])
+    description = "Run "
+    main = mainClass
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClass
+    }
+}
+
+dependencies {
+    compile "org.slf4j:log4j-over-slf4j:${slf4jVersion}"
+    compile "org.slf4j:jcl-over-slf4j:${slf4jVersion}"
+
+    compile "io.dropwizard:dropwizard-core:${dropwizardVersion}"
+    compile "io.dropwizard.modules:dropwizard-java8:${dropwizardModulesJava8Version}"
+    compile "smartthings:dropwizard-guice:${dropwizardCommon}"
+    compile "smartthings:dropwizard-buildinfo:${dropwizardCommon}"
+    compile "smartthings:dropwizard-logging:${dropwizardCommon}"
+    compile "org.coursera:dropwizard-metrics-datadog:${dropwizardMetricsDatadogVersion}"
+
+    compile "com.google.inject.extensions:guice-assistedinject:${guiceAssistedInjectVersion}"
+
+    testCompile "io.dropwizard:dropwizard-testing:${dropwizardVersion}"
+    testCompile "org.spockframework:spock-core:${spockCoreVersion}"
+}

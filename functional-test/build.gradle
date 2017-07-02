@@ -1,0 +1,13 @@
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:${groovyVersion}"
+    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-jackson:${retrofitVersion}"
+    compile "com.squareup.okhttp3:logging-interceptor:${okHttpVersion}"
+    testCompile "org.spockframework:spock-core:${spockCoreVersion}"
+}
+
+shadowJar {
+    classifier = 'tests'
+    from sourceSets.test.output
+    configurations = [project.configurations.testRuntime]
+}
