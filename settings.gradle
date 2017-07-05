@@ -1,3 +1,4 @@
 rootProject.name = 'microservice-tests'
 include 'functional-test'
 include 'web'
+include 'test-runner'

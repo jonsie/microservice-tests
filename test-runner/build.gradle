@@ -1,0 +1,30 @@
+repositories {
+    mavenLocal()
+}
+
+def requiredMavenParams = project.hasProperty('testGroup') && project.hasProperty('testName') &&
+        project.hasProperty('testVersion') && project.hasProperty('testClassifier')
+
+if (requiredMavenParams) {
+    dependencies {
+        compile group: testGroup, name: testName, version: testVersion, classifier: testClassifier
+    }
+
+    String jarPath = project.configurations.compile.find { it.name.startsWith(testName) }
+
+    processResources {
+        from(zipTree(jarPath))
+    }
+
+    task functionalTest(type: Test, dependsOn: processResources) {
+        if (project.hasProperty('prodsmoke')) {
+            systemProperty 'prodsmoke', true
+        }
+        testClassesDir = file(buildDir.toString()+"/resources/main/" + testGroup.replace(".", "/"))
+        outputs.upToDateWhen { false }
+        reports {
+            junitXml.enabled = true
+            html.enabled = true
+        }
+    }
+}

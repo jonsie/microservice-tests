@@ -17,8 +17,9 @@ subprojects {
     apply plugin: "groovy"
     apply plugin: "java"
     apply plugin: "com.github.johnrengelman.shadow"
+    apply from: rootProject.file('gradle/publish-shadow.gradle')
 
-    group = "gr8conf"
+    group = "us.gr8conf"
 
     sourceCompatibility = "1.8"
     targetCompatibility = "1.8"

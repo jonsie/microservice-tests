@@ -14,4 +14,7 @@ shadowJar {
 
 test {
     outputs.upToDateWhen { false }
+    if (project.hasProperty('prodsmoke')) {
+        systemProperty 'prodsmoke', true
+    }
 }
