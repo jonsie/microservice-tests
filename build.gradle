@@ -33,5 +33,8 @@ subprojects {
         maven {
             url 'http://dl.bintray.com/smartthingsoss/maven'
         }
+        maven {
+            url 'https://dl.bintray.com/anotherchrisberry'
+        }
     }
 }

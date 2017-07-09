@@ -8,7 +8,7 @@ import us.gr8conf.client.model.Model
 
 class ServiceSpec extends FunctionalTestSpecification {
 
-    def "post model, get model by id"() {
+    def "post model and get model by id"() {
         given:
         Model model = new Model(foo: "test", bar: 123)
 
@@ -34,7 +34,7 @@ class ServiceSpec extends FunctionalTestSpecification {
         getResponseModel.id  == postResponseModel.id
     }
 
-    def "post model, get model by bad id"() {
+    def "post model and get model by bad id"() {
         given:
         Model model = new Model(foo: "test", bar: 123)
 

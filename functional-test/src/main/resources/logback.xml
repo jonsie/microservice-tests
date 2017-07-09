@@ -1,0 +1,19 @@
+<configuration>
+    <appender name="HTTP" class="ch.qos.logback.core.FileAppender">
+        <file>build/http_calls.csv</file>
+        <append>false</append>
+        <immediateFlush>true</immediateFlush>
+        <encoder>
+            <pattern>%date{"yyyy-MM-dd'T'hh:mm:ss,SSSZ", UTC},%X{SpecClass},%X{SpecName},%X{API-httpMethod},%X{API-baseUrl},%X{API-relativeUrl},%X{loggingId}%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>timestamp=%d{HH:mm:ss.SSS}, level=%-5level, logger=%logger{36}, loggingId=%X{loggingId}, status=%X{SpecNameStatus}, message=%msg,%n</pattern>
+        </encoder>
+    </appender>
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="HTTP"/>
+    </root>
+</configuration>
