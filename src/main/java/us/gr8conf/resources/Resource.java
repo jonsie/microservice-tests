@@ -26,14 +26,14 @@ public class Resource implements WebResource {
 
 	@POST
 	@Path("/post")
-	public Response scheduleLoad(@Validated Model model) {
+	public Response post(@Validated Model model) {
 		model = service.handlePost(model);
 		return Response.ok(model, MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
 	@Path("/get/{id}")
-	public Response scheduleLoad(@PathParam("id") String id) {
+	public Response get(@PathParam("id") String id) {
 		Model model = service.handleGet(id);
 		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
