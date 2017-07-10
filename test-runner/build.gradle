@@ -27,4 +27,12 @@ if (requiredMavenParams) {
             html.enabled = true
         }
     }
+
+    task loadTest(type: JavaExec) {
+        if (project.hasProperty('simulationConfig')) {
+            systemProperty 'simulation.config', simulationConfig
+        }
+        main="-jar"
+        args = [ jarPath ]
+    }
 }

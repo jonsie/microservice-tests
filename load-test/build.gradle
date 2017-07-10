@@ -1,0 +1,17 @@
+apply plugin: 'application'
+apply plugin: 'scala'
+
+dependencies {
+    compile "org.scala-lang:scala-library:${scalaVersion}"
+    compile "org.scala-lang:scala-compiler:${scalaVersion}"
+
+    compile "io.gatling:gatling-core:${gatlingVersion}"
+    compile "io.gatling:gatling-http:${gatlingVersion}"
+    compile "io.gatling.highcharts:gatling-charts-highcharts:${gatlingVersion}"
+}
+
+mainClassName = 'us.gr8conf.ServiceSimulationEngine'
+
+shadowJar {
+    classifier = 'load'
+}

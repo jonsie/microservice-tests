@@ -5,7 +5,7 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.0"
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.1"
     }
 }
 
@@ -15,7 +15,6 @@ if (!JavaVersion.current().java8Compatible) {
 
 subprojects {
     apply plugin: "groovy"
-    apply plugin: "java"
     apply plugin: "com.github.johnrengelman.shadow"
     apply from: rootProject.file('gradle/publish-shadow.gradle')
 
