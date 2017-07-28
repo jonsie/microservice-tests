@@ -24,3 +24,4 @@ Once you have the load-test JAR published to maven local, run the tests with thi
 		-PtestName=functional-test \
 		-PtestVersion=0.0.1 \
 		-PtestClassifier=load
+		-Psimulation.config=/path/to/simulation.conf
